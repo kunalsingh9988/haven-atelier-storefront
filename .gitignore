@@ -4,3 +4,4 @@ dist/
 _client-assets/
 assets/
 .DS_Store
+app/.vercel/
