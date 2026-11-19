@@ -82,7 +82,7 @@ export default function Footer() {
           </span>
         </div>
         <p className="footer-credits">
-          pictures &amp; footage via wikimedia commons —{' '}
+          lifestyle scenes are generated editorial imagery; final Haven product photography is pending. Other pictures &amp; footage via wikimedia commons —{' '}
           <a href="https://commons.wikimedia.org/wiki/File:Tea-plantation_Shizuoka-Fukuroi.jpg" target="_blank" rel="noopener noreferrer">tea plantation, shizuoka</a> by MaedaAkihiko,{' '}
           <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>;{' '}
           <a href="https://commons.wikimedia.org/wiki/File:Chasen-top_oblique-fs_PNr%C2%B00500.jpg" target="_blank" rel="noopener noreferrer">chasen</a> by D-Kuru,{' '}

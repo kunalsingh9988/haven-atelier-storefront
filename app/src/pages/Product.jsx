@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard';
 import Reveal from '../components/Reveal';
 import Newsletter from '../components/Newsletter';
 import { Stars } from '../components/ProductCard';
+import { lifestyleImages } from '../data/lifestyle';
 
 export default function Product() {
   const { handle } = useParams();
@@ -31,6 +32,7 @@ export default function Product() {
     if (!product) return [];
     return (product.pairs || []).map((h) => products.find((p) => p.handle === h)).filter(Boolean).slice(0, 4);
   }, [product]);
+  const gallery = product ? [{ type: 'illustration', alt: `${product.name} concept illustration` }, ...lifestyleImages(product)] : [];
 
   if (!product) {
     return (
@@ -85,15 +87,16 @@ export default function Product() {
           {/* gallery */}
           <div>
             <div className="gallery-main">
-              <ProductArt art={product.art} />
+              {thumb === 0 ? <ProductArt art={product.art} /> : <img src={gallery[thumb]?.src} alt={gallery[thumb]?.alt} />}
             </div>
             <div className="gallery-thumbs" role="tablist" aria-label="product views">
-              {[0, 1, 2].map((i) => (
+              {gallery.map((view, i) => (
                 <button key={i} className={thumb === i ? 'on' : ''} onClick={() => setThumb(i)} aria-label={`view ${i + 1}`} aria-selected={thumb === i} role="tab">
-                  <ProductArt art={product.art} />
+                  {i === 0 ? <ProductArt art={product.art} /> : <img src={view.src} alt="" />}
                 </button>
               ))}
             </div>
+            {thumb > 0 && <p className="gallery-note">Ritual inspiration. Styled imagery is illustrative; final product photography is pending.</p>}
           </div>
 
           {/* info */}

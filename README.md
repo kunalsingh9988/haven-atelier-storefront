@@ -11,7 +11,7 @@ Built with React + Vite. Designed mobile-first in the brand system: cream `#f1f2
 - **product pages** — one-time vs subscribe & save (15% off, 3 intervals) on the two matchas only; blend bundle is one-time only; quantity, related products, reviews, accordions
 - **cart drawer** — quantities, remove, clear, subtotal, $9.95 shipping / free ≥ $120, upsells
 - **pages** — our story (brand copy), the atelier + 3 recipes, contact form, FAQs, shipping & returns, terms, privacy, manage subscription, search, checkout stub, 404
-- **imagery** — open-licence photography/footage via Wikimedia Commons (credits in footer); drawn SVG product art stands in until final product photography arrives
+- **imagery** — generated editorial lifestyle scenes show the matcha ritual, alongside open-licence photography/footage via Wikimedia Commons (credits in footer); drawn SVG product art stands in until actual Haven product photography arrives. Generated scenes are illustrative, not photographs of the launch products.
 
 ## run it
 

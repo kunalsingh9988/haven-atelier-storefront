@@ -6,7 +6,6 @@ import {
 } from '../data/catalogue';
 import { useCart } from '../store';
 import ProductCard from '../components/ProductCard';
-import ProductArt from '../components/ProductArt';
 import Accordion from '../components/Accordion';
 import Reveal from '../components/Reveal';
 import Newsletter from '../components/Newsletter';
@@ -15,23 +14,11 @@ import Newsletter from '../components/Newsletter';
 function Hero() {
   return (
     <section className="hero" aria-label="haven atelier — ceremonial grade matcha">
-      <img src="/img/tea-minami-yamashiro-kyoto-01.jpg" alt="a tea plantation in kyoto, rows of green tea bushes" fetchPriority="high" />
+      <img src="/img/lifestyle/hero-matcha-ritual.webp" alt="Iced matcha beside a bamboo whisk in warm afternoon light" fetchPriority="high" />
       <div className="hero-scrim" />
-      <div className="hero-bottom" aria-hidden="true" />
-      <div className="hero-top">
-        <span className="wordmark-mini">haven atelier</span>
-        <nav aria-label="quick">
-          <Link to="/collections/matcha">shop</Link>
-          <Link to="/pages/our-story">our story</Link>
-          <Link to="/pages/the-atelier">the atelier</Link>
-          <Link to="/pages/contact">contact</Link>
-        </nav>
-      </div>
       <div className="hero-lockup">
-        <h1 className="hero-name">haven</h1>
-        <p className="hero-tagline">ceremonial grade matcha, uji japan</p>
-      </div>
-      <div className="hero-cta">
+        <p className="hero-eyebrow">haven atelier · matcha &amp; teaware</p>
+        <h1 className="hero-name">a slower kind<br />of morning.</h1>
         <Link to="/collections/matcha" className="btn btn-light">shop matcha</Link>
       </div>
     </section>
@@ -105,17 +92,17 @@ function Tiles() {
     {
       title: 'matcha', copy: 'everyday blend, premium matcha and the blend bundle',
       to: '/collections/matcha', link: 'shop matcha',
-      bg: '/img/matcha-latte.jpg', alt: 'a glass of matcha latte',
+      bg: '/img/lifestyle/matcha-preparation.webp', alt: 'Hands whisking matcha in a ceramic bowl',
     },
     {
       title: 'teaware', copy: 'bowls, whisks and the quiet tools of the ritual',
       to: '/collections/teaware', link: 'shop teaware',
-      art: 'bowl-premium',
+      bg: '/img/lifestyle/ceramic-bowl.webp', alt: 'A ceramic bowl of matcha with bamboo tools',
     },
     {
       title: 'haven recipes', copy: 'the classic bowl, lattes and slow afternoons',
       to: '/pages/the-atelier', link: 'explore recipes',
-      bg: '/img/summer-wagashi-03.jpg', alt: 'japanese wagashi sweets on a quiet table',
+      bg: '/img/lifestyle/ritual-set.webp', alt: 'Matcha and teaware arranged for a morning ritual',
     },
   ];
   return (
@@ -123,12 +110,8 @@ function Tiles() {
       <div className="tile-grid">
         {tiles.map((t, i) => (
           <Reveal key={t.title} delay={i * 100}>
-            <Link to={t.to} className={`tile ${t.art ? 'tile--art' : ''}`} aria-label={t.link}>
-              {t.bg ? (
-                <img src={t.bg} alt={t.alt} className="tile-ink" style={{ objectFit: 'cover', width: '100%', height: '100%' }} loading="lazy" />
-              ) : (
-                <span className="tile-art-wrap"><ProductArt art={t.art} /></span>
-              )}
+            <Link to={t.to} className="tile" aria-label={t.link}>
+              <img src={t.bg} alt={t.alt} className="tile-ink" loading="lazy" />
               <span className="tile-text">
                 <h3>{t.title}</h3>
                 <p>{t.copy}</p>
@@ -305,6 +288,10 @@ function SubscribeSave() {
 
   return (
     <section className="section sub-save">
+      <div className="subscribe-photo" role="img" aria-label="Matcha being whisked in a ceramic bowl">
+        <img src="/img/lifestyle/matcha-preparation.webp" alt="" loading="lazy" />
+        <span>the ritual, at your rhythm.</span>
+      </div>
       <div className="wrap grid-2">
         <Reveal>
           <h2 style={{ marginBottom: 18 }}>your bowl, on repeat</h2>
