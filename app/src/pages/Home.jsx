@@ -20,6 +20,11 @@ function Hero() {
         <p className="hero-eyebrow">haven atelier · matcha &amp; teaware</p>
         <h1 className="hero-name">a slower kind<br />of morning.</h1>
         <Link to="/collections/matcha" className="btn btn-light">shop matcha</Link>
+        <p className="hero-proof">
+          <span>Ceremonial grade matcha</span>
+          <span className="hero-proof-divider" aria-hidden="true">·</span>
+          <span>Free Australian shipping on orders {money(FREE_SHIPPING_THRESHOLD)}+</span>
+        </p>
       </div>
     </section>
   );

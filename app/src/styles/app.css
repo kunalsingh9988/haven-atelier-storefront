@@ -289,6 +289,11 @@ p { margin: 0; }
   color: #f6f7ee; font-weight: 400;
 }
 .hero-lockup .btn { margin-top: 38px; }
+.hero-proof {
+  display: flex; align-items: center; justify-content: center; gap: 3px 9px; flex-wrap: wrap;
+  margin: 14px 0 0; padding: 6px 12px; border-radius: 12px;
+  background: rgba(12,21,4,.68); color: #f6f7ee; font-size: 13px; line-height: 1.4;
+}
 @media (max-width: 760px) {
   .hero { height: 68svh; min-height: 540px; }
   .hero > img { object-position: 65% center; }
@@ -296,6 +301,8 @@ p { margin: 0; }
   .hero-lockup { width: 100%; justify-content: flex-end; padding-bottom: 74px; }
   .hero-name { font-size: clamp(57px, 12vw, 85px); }
   .hero-eyebrow { font-size: 10px; }
+  .hero-proof { flex-direction: column; }
+  .hero-proof-divider { display: none; }
 }
 
 /* ---------- philosophy (静 statement) ---------- */
