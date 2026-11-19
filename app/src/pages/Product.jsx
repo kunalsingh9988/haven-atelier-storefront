@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getProduct, products, productReviews, INTERVALS, money, subscribePrice, FREE_SHIPPING_THRESHOLD, shippingFor } from '../data/catalogue';
+import { getProduct, products, productReviews, INTERVALS, money, subscribePrice, FREE_SHIPPING_THRESHOLD } from '../data/catalogue';
 import { useCart } from '../store';
-import ProductArt from '../components/ProductArt';
+import ProductImage from '../components/ProductImage';
 import ProductCard from '../components/ProductCard';
 import Reveal from '../components/Reveal';
 import Newsletter from '../components/Newsletter';
@@ -26,13 +26,12 @@ export default function Product() {
 
   const reviews = useMemo(() => (product ? productReviews(product) : []), [product]);
   const canSub = product?.subPrice != null;
-  const unitPrice = plan === 'subscription' ? subscribePrice(product) : product.price;
-  const lineTotal = unitPrice * qty;
   const related = useMemo(() => {
     if (!product) return [];
     return (product.pairs || []).map((h) => products.find((p) => p.handle === h)).filter(Boolean).slice(0, 4);
   }, [product]);
-  const gallery = product ? [{ type: 'illustration', alt: `${product.name} concept illustration` }, ...lifestyleImages(product)] : [];
+  const gallery = product ? [{ alt: 'Product image' }, ...lifestyleImages(product)] : [];
+  const selectedView = gallery[thumb];
 
   if (!product) {
     return (
@@ -44,6 +43,9 @@ export default function Product() {
       </main>
     );
   }
+
+  const unitPrice = canSub && plan === 'subscription' ? subscribePrice(product) : product.price;
+  const lineTotal = unitPrice * qty;
 
   const accItems = [
     {
@@ -87,16 +89,26 @@ export default function Product() {
           {/* gallery */}
           <div>
             <div className="gallery-main">
-              {thumb === 0 ? <ProductArt art={product.art} /> : <img src={gallery[thumb]?.src} alt={gallery[thumb]?.alt} />}
+              {selectedView?.src ? (
+                <img src={selectedView.src} alt={selectedView.alt} />
+              ) : (
+                <ProductImage product={product} sizes="(max-width: 960px) 92vw, 660px" priority />
+              )}
             </div>
-            <div className="gallery-thumbs" role="tablist" aria-label="product views">
-              {gallery.map((view, i) => (
-                <button key={i} className={thumb === i ? 'on' : ''} onClick={() => setThumb(i)} aria-label={`view ${i + 1}`} aria-selected={thumb === i} role="tab">
-                  {i === 0 ? <ProductArt art={product.art} /> : <img src={view.src} alt="" />}
-                </button>
-              ))}
-            </div>
-            {thumb > 0 && <p className="gallery-note">Ritual inspiration. Styled imagery is illustrative; final product photography is pending.</p>}
+            {gallery.length > 1 && (
+              <div className="gallery-thumbs" role="group" aria-label="product views">
+                {gallery.map((view, i) => (
+                  <button key={view.alt} className={thumb === i ? 'on' : ''} onClick={() => setThumb(i)} aria-label={view.alt} aria-pressed={thumb === i}>
+                    {view.src ? (
+                      <img src={view.src} alt="" loading="lazy" />
+                    ) : (
+                      <ProductImage product={product} sizes="84px" decorative />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+            <p className="gallery-note">AI-generated imagery. Product appearance is illustrative.</p>
           </div>
 
           {/* info */}

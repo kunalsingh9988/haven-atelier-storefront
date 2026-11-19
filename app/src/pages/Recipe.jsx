@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { recipes, getProduct, money } from '../data/catalogue';
-import ProductArt from '../components/ProductArt';
+import ProductImage from '../components/ProductImage';
 import Reveal from '../components/Reveal';
 
 export default function Recipe() {
@@ -46,7 +46,7 @@ export default function Recipe() {
             <div style={{ marginTop: 44 }}>
               <h3>shop the matcha</h3>
               <Link to={`/products/${product.handle}`} className="card" style={{ flexDirection: 'row', textDecoration: 'none' }}>
-                <div style={{ width: 110, flexShrink: 0 }}><ProductArt art={product.art} /></div>
+                <div style={{ width: 110, flexShrink: 0 }}><ProductImage product={product} sizes="110px" decorative /></div>
                 <div style={{ padding: '14px 18px' }}>
                   <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, color: 'var(--forest)' }}>{product.name}</div>
                   <div style={{ fontSize: 14, color: 'var(--muted)', marginTop: 4 }}>{money(product.price)} · 30 g tin</div>

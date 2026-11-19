@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../store';
 import { getProducts, INTERVALS, FREE_SHIPPING_THRESHOLD, money } from '../data/catalogue';
-import ProductArt from './ProductArt';
+import ProductImage from './ProductImage';
 
 function CloseIcon() {
   return (
@@ -69,7 +69,7 @@ export default function CartDrawer() {
                 lines.map((l) => (
                   <div className="cart-line" key={`${l.handle}-${l.plan}`}>
                     <Link to={`/products/${l.handle}`} className="cl-art" aria-label={l.product.name} onClick={() => setDrawerOpen(false)}>
-                      <ProductArt art={l.product.art} />
+                      <ProductImage product={l.product} sizes="76px" decorative />
                     </Link>
                     <div>
                       <div className="cl-name">{l.product.name}</div>
@@ -110,7 +110,7 @@ export default function CartDrawer() {
                     <div className="up-row">
                       {upsells.map((p) => (
                         <div className="up-item" key={p.handle}>
-                          <Link to={`/products/${p.handle}`} className="up-art" onClick={() => setDrawerOpen(false)}><ProductArt art={p.art} /></Link>
+                          <Link to={`/products/${p.handle}`} className="up-art" aria-label={p.name} onClick={() => setDrawerOpen(false)}><ProductImage product={p} sizes="56px" decorative /></Link>
                           <div>
                             <div className="up-name">{p.short}</div>
                             <div className="up-price">{money(p.price)}</div>

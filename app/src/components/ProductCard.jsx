@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ProductArt from './ProductArt';
+import ProductImage from './ProductImage';
 import { money } from '../data/catalogue';
 import { useCart } from '../store';
 import { Stars } from './Stars';
@@ -12,7 +12,7 @@ export default function ProductCard({ product, quickAdd = true }) {
   return (
     <article className="card">
       <Link to={`/products/${product.handle}`} className="card-media" aria-label={product.name}>
-        <ProductArt art={product.art} />
+        <ProductImage product={product} sizes="(max-width: 720px) 280px, (max-width: 1080px) 33vw, 440px" decorative />
         {canSub && <span className="card-badge">save 15%</span>}
       </Link>
       <div className="card-body">
