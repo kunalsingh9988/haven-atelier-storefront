@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  products, getProducts, collectionProducts, homeReviews, recipes, faqs,
+  products, getProducts, homeReviews, recipes, faqs,
   money, INTERVALS, FREE_SHIPPING_THRESHOLD,
 } from '../data/catalogue';
-import { useCart } from '../store';
 import ProductCard from '../components/ProductCard';
 import Accordion from '../components/Accordion';
 import Reveal from '../components/Reveal';
 import Newsletter from '../components/Newsletter';
+import RecipeGrid from '../components/RecipeGrid';
 
 /* ---------------- hero ---------------- */
 function Hero() {
@@ -17,7 +17,6 @@ function Hero() {
       <img src="/img/lifestyle/hero-matcha-ritual.webp" alt="Iced matcha beside a bamboo whisk in warm afternoon light" fetchPriority="high" />
       <div className="hero-scrim" />
       <div className="hero-lockup">
-        <p className="hero-eyebrow">haven atelier · matcha &amp; teaware</p>
         <h1 className="hero-name">a slower kind<br />of morning.</h1>
         <Link to="/collections/matcha" className="btn btn-light">shop matcha</Link>
         <p className="hero-proof">
@@ -39,8 +38,8 @@ function ShopTabs() {
   return (
     <section className="section wrap">
       <Reveal>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 20, flexWrap: 'wrap', marginBottom: 34 }}>
-          <h2 style={{ fontSize: 'clamp(30px,3.4vw,46px)' }}>the ones we reach for</h2>
+        <div className="shop-heading">
+          <h2>the ones we reach for</h2>
           <div className="tabs" role="tablist" aria-label="product selection">
             <button className={`tab-btn ${tab === 'best' ? 'active' : ''}`} onClick={() => setTab('best')} role="tab" aria-selected={tab === 'best'}>best sellers</button>
             <button className={`tab-btn ${tab === 'kits' ? 'active' : ''}`} onClick={() => setTab('kits')} role="tab" aria-selected={tab === 'kits'}>kits</button>
@@ -48,12 +47,8 @@ function ShopTabs() {
         </div>
       </Reveal>
       <div className="rail" key={tab}>
-        {items.map((p, i) => (
-          <Reveal key={p.handle} delay={i * 90} className="rv" style={{ minWidth: 0 }}>
-            <div style={{ minWidth: 270 }}>
-              <ProductCard product={p} />
-            </div>
-          </Reveal>
+        {items.map((p) => (
+          <ProductCard key={p.handle} product={p} />
         ))}
       </div>
     </section>
@@ -64,28 +59,22 @@ function ShopTabs() {
 function Philosophy() {
   return (
     <section className="section philosophy">
-      <div className="wrap">
-        <Reveal>
+      <div className="wrap philo-grid">
+        <div>
           <span className="kanji-big" aria-hidden="true">静</span>
-        </Reveal>
-        <Reveal delay={100}>
-          <div className="philo-grid">
-            <blockquote>
-              stillness. for Haven Atelier, it represents a state of quiet intention -<br />
-              the art of slowing down, being present and giving importance to the everyday.
-            </blockquote>
-            <figure className="philo-film">
-              <video autoPlay muted loop playsInline preload="metadata" poster="/img/matcha-whisking-poster.jpg" aria-label="matcha being whisked">
-                <source src="/img/matcha-whisking.webm" type="video/webm" />
-              </video>
-              <figcaption>the whisk, up close — stone-milled matcha, quiet mornings</figcaption>
-            </figure>
-          </div>
-        </Reveal>
-        <Reveal delay={180}>
+          <blockquote>
+            stillness. for Haven Atelier, it represents a state of quiet intention –
+            the art of slowing down, being present and giving importance to the everyday.
+          </blockquote>
           <p className="philo-copy">a quieter philosophy, expressed in every detail.</p>
           <Link to="/pages/our-story" className="btn btn-light">discover our story</Link>
-        </Reveal>
+        </div>
+        <figure className="philo-film">
+          <video autoPlay muted loop playsInline preload="metadata" poster="/img/matcha-whisking-poster.jpg" aria-label="matcha being whisked">
+            <source src="/img/matcha-whisking.webm" type="video/webm" />
+          </video>
+          <figcaption>the whisk, up close — stone-milled matcha, quiet mornings</figcaption>
+        </figure>
       </div>
     </section>
   );
@@ -116,12 +105,12 @@ function Tiles() {
         {tiles.map((t, i) => (
           <Reveal key={t.title} delay={i * 100}>
             <Link to={t.to} className="tile" aria-label={t.link}>
-              <img src={t.bg} alt={t.alt} className="tile-ink" loading="lazy" />
-              <span className="tile-text">
+              <span className="tile-frame"><img src={t.bg} alt={t.alt} className="tile-ink" loading="lazy" /></span>
+              <div className="tile-text">
                 <h3>{t.title}</h3>
                 <p>{t.copy}</p>
                 <span className="tile-link">{t.link}</span>
-              </span>
+              </div>
             </Link>
           </Reveal>
         ))}
@@ -286,7 +275,6 @@ function SubscribeSave() {
   const p = products.find((x) => x.handle === blend);
   const sub = p.subPrice;
   const bowls = p.tag === 'bundle' ? 60 : 30;
-  const perBowl = sub ? (sub / bowls).toFixed(2) : null;
   const shipFree = sub >= FREE_SHIPPING_THRESHOLD;
   const next = new Date(Date.now() + INTERVALS.find((i) => i.id === interval).days * 864e5);
   const nextStr = next.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -392,11 +380,7 @@ function AtelierTeaser() {
           <Link to="/pages/the-atelier" className="link-arrow">all recipes</Link>
         </div>
       </Reveal>
-      <div className="stagger">
-        <Reveal><figure className="ph w60 tall"><img src={`/img/${picks[0].image}`} alt={picks[0].alt} loading="lazy" /><figcaption>{picks[0].title}</figcaption></figure></Reveal>
-        <Reveal><figure className="ph w33 tall" style={{ marginTop: 60 }}><img src={`/img/${picks[1].image}`} alt={picks[1].alt} loading="lazy" /><figcaption>{picks[1].title}</figcaption></figure></Reveal>
-        <Reveal><figure className="ph w48 wide"><img src={`/img/${picks[2].image}`} alt={picks[2].alt} loading="lazy" /><figcaption>{picks[2].title}</figcaption></figure></Reveal>
-      </div>
+      <RecipeGrid recipes={picks} />
     </section>
   );
 }

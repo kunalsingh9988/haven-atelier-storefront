@@ -64,10 +64,7 @@ export default function Header() {
         <div className="wrap header-inner">
           <Link to="/" className="brand" aria-label="haven atelier — home">
             <span className="brand-mark kanji">静</span>
-            <span>
-              <span className="brand-word">haven atelier</span>
-              <span className="brand-sub">ceremonial matcha</span>
-            </span>
+            <span className="brand-word">haven atelier</span>
           </Link>
 
           <nav className="nav-desktop" aria-label="primary">

@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import { recipes } from '../data/catalogue';
-import Reveal from '../components/Reveal';
+import RecipeGrid from '../components/RecipeGrid';
 import Newsletter from '../components/Newsletter';
 
 export default function Atelier() {
@@ -13,18 +12,7 @@ export default function Atelier() {
         </div>
       </div>
       <div className="wrap" style={{ paddingBottom: 60 }}>
-        <div className="stagger">
-          {recipes.map((r, i) => (
-            <Reveal key={r.handle} delay={i * 100}>
-              <Link to={`/recipes/${r.handle}`} style={{ display: 'block' }}>
-                <figure className={`ph ${i === 0 ? 'w60 tall' : i === 1 ? 'w33 tall' : 'w48 wide'}`} style={i === 1 ? { marginTop: 50 } : {}}>
-                  <img src={`/img/${r.image}`} alt={r.alt} loading="lazy" />
-                  <figcaption style={{ padding: '12px 4px 0' }}>{r.title}</figcaption>
-                </figure>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <RecipeGrid recipes={recipes} />
       </div>
       <Newsletter heading="letters from the atelier" copy="new recipes and small-batch news, occasionally. no noise." />
     </main>

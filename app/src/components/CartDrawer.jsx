@@ -68,7 +68,7 @@ export default function CartDrawer() {
               ) : (
                 lines.map((l) => (
                   <div className="cart-line" key={`${l.handle}-${l.plan}`}>
-                    <Link to={`/products/${l.handle}`} className="cl-art" onClick={() => setDrawerOpen(false)}>
+                    <Link to={`/products/${l.handle}`} className="cl-art" aria-label={l.product.name} onClick={() => setDrawerOpen(false)}>
                       <ProductArt art={l.product.art} />
                     </Link>
                     <div>
@@ -97,7 +97,6 @@ export default function CartDrawer() {
                         <button className="cl-remove" onClick={() => remove(l.handle, l.plan)}>remove</button>
                       </div>
                     </div>
-                    <div style={{ textAlign: 'right', fontWeight: 600, color: 'var(--forest)' }}>{money(l.lineTotal)}</div>
                   </div>
                 ))
               )}
