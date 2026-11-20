@@ -791,6 +791,9 @@ p { margin: 0; }
 .pdp-reviews h2 { max-width: 12ch; color: var(--cream-on-dark); font-size: clamp(42px, 5vw, 72px); }
 .pdp-reviews p { max-width: 46ch; color: rgba(244,245,236,.78); font-size: clamp(18px, 1.7vw, 22px); line-height: 1.55; }
 .pdp-faq { border-bottom: 1px solid var(--line); }
+@media (min-width: 801px) {
+  .pdp-faq .home-faq-grid > .rv:last-child { align-self: center; }
+}
 .pdp-related-heading { margin-bottom: clamp(28px, 4vw, 48px); }
 .pdp-related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(16px, 2vw, 28px); }
 .pdp-final-wrap { padding-bottom: var(--section-space); }
