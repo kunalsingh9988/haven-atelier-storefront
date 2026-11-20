@@ -1,10 +1,11 @@
 // Haven Atelier — launch catalogue (15 Nov 2026 brief) + site content.
-// Prices AUD. Subscription discount 15% applies to the two blends + Blend Bundle only.
+// Prices AUD. Subscription discount 15% applies to Everyday and Premium only.
 
 export const FREE_SHIPPING_THRESHOLD = 120;
 export const FLAT_SHIPPING = 9.95;
 export const SUB_DISCOUNT = 0.15;
 export const CONTACT_EMAIL = 'info@havenateliermatcha.com';
+export const SHIPPING_COPY = 'Australia only. Free shipping on goods totals of $120 or more after discounts. Flat $9.95 below $120. These rules apply to each subscription delivery. Estimated delivery is 2–8 business days from ordering, subject to confirmation.';
 
 export const INTERVALS = [
   { id: '2w', label: 'every 2 weeks', days: 14 },
@@ -28,7 +29,7 @@ export const products = [
     blurb: 'our everyday matcha — smooth, gently sweet and easy to drink. shade-grown, stone-milled ceremonial grade for quiet mornings and slow afternoons.',
     details: '30 g tin · roughly 30 servings · ceremonial grade',
     contents: '30 g ceremonial grade matcha',
-    collections: ['matcha', 'best-sellers', 'all'],
+    collections: ['matcha', 'best-sellers', 'all', 'subscriptions'],
     pairs: ['whisk-holder-combo', 'japanese-sifter', 'haven-spoon'],
   },
   {
@@ -46,7 +47,7 @@ export const products = [
     blurb: 'our deepest, most layered matcha. first-harvest leaves, shade-grown and stone-milled for a umami-rich bowl with a long, clean finish.',
     details: '30 g tin · roughly 30 servings · ceremonial grade, first harvest',
     contents: '30 g premium ceremonial matcha',
-    collections: ['matcha', 'all'],
+    collections: ['matcha', 'all', 'subscriptions'],
     pairs: ['blend-bundle', 'haven-bowl-1', 'japanese-sifter'],
   },
   {
@@ -61,7 +62,7 @@ export const products = [
     hue: '#273c03',
     rating: 4.9,
     reviewCount: 0,
-    blurb: 'both blends in one delivery — everyday for the daily bowl, premium for when you want to slow right down. one-time purchase, or a subscription that arrives with both tins.',
+    blurb: 'both blends in one delivery — everyday for the daily bowl, premium for when you want to slow right down. available as a one-time purchase.',
     details: 'Everyday Blend 30 g + Premium Matcha 30 g',
     contents: 'two 30 g tins — Everyday + Premium',
     collections: ['matcha', 'all'],
@@ -219,6 +220,7 @@ export const collections = {
   'teaware': { title: 'Teaware', path: '/collections/teaware', blurb: 'bowls, whisks and the quiet tools of the ritual.' },
   'best-sellers': { title: 'Best Sellers', path: '/collections/best-sellers', blurb: 'the pieces our customers reach for most.' },
   'all': { title: 'All Products', path: '/collections/all', blurb: 'the full haven atelier launch collection.' },
+  'subscriptions': { title: 'Subscriptions', path: '/collections/subscriptions', blurb: 'save 15% on Everyday Blend or Premium Matcha with a rhythm that suits you.' },
 };
 
 export const getProduct = (handle) => products.find((p) => p.handle === handle);
@@ -344,7 +346,7 @@ export const faqs = [
   },
   {
     q: 'what are your shipping rates and delivery times?',
-    a: 'we ship australia-wide. orders of $120 or more ship free; below that, a flat $9.95 applies. estimated delivery is 2–8 business days from ordering. every subscription delivery follows the same free-shipping threshold.',
+    a: SHIPPING_COPY,
   },
   {
     q: 'can i change or cancel my subscription?',

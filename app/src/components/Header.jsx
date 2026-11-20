@@ -4,7 +4,7 @@ import { getProducts, money, nav } from '../data/catalogue';
 import { useCart } from '../store';
 import ProductImage from './ProductImage';
 
-const menuProducts = getProducts(['everyday-blend', 'matcha-kit']);
+const menuProducts = getProducts(['everyday-blend', 'premium-matcha', 'matcha-kit']);
 
 function SearchIcon() {
   return (
@@ -39,6 +39,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
+  const [desktopShopMode, setDesktopShopMode] = useState(null);
   const { add, count, setDrawerOpen } = useCart();
   const location = useLocation();
 
@@ -50,7 +51,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false); setShopOpen(false);
+    setMenuOpen(false); setShopOpen(false); setDesktopShopMode(null);
     document.body.classList.remove('no-scroll');
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -62,6 +63,7 @@ export default function Header() {
 
   return (
     <>
+      <div className="announce">Free shipping from $120+</div>
       <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="wrap header-inner">
           <Link to="/" className="brand" aria-label="haven atelier — home">
@@ -72,14 +74,39 @@ export default function Header() {
           <nav className="nav-desktop" aria-label="primary">
             {nav.map((item) =>
               item.children ? (
-                <div className="nav-item" key={item.label}>
-                  <NavLink to={item.path} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} end>
-                    {item.label} <span className="caret">▾</span>
-                  </NavLink>
-                  <div className="nav-dropdown" role="menu">
-                    {item.children.map((c) => (
-                      <Link key={c.path} to={c.path} role="menuitem">{c.label}</Link>
-                    ))}
+                <div
+                  className="nav-item"
+                  key={item.label}
+                  onMouseEnter={() => setDesktopShopMode((mode) => mode ?? 'hover')}
+                  onMouseLeave={() => setDesktopShopMode((mode) => mode === 'hover' ? null : mode)}
+                  onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setDesktopShopMode(null); }}
+                  onKeyDown={(event) => { if (event.key === 'Escape') { setDesktopShopMode(null); event.currentTarget.querySelector('button')?.focus(); } }}
+                >
+                  <button
+                    type="button"
+                    className="nav-link nav-shop-trigger"
+                    aria-expanded={desktopShopMode !== null}
+                    aria-controls="desktop-shop-menu"
+                    onClick={() => setDesktopShopMode((mode) => mode === 'click' ? null : 'click')}
+                  >
+                    {item.label} <span className="caret" aria-hidden="true">▾</span>
+                  </button>
+                  <div id="desktop-shop-menu" className={`nav-dropdown ${desktopShopMode ? 'open' : ''}`}>
+                    <div className="nav-dropdown-links">
+                      <span className="nav-dropdown-label">SHOP BY CATEGORY</span>
+                      {item.children.map((c) => <Link key={c.path} to={c.path} onClick={() => setDesktopShopMode(null)}>{c.label}</Link>)}
+                    </div>
+                    <div className="nav-dropdown-featured">
+                      <span className="nav-dropdown-label">FEATURED</span>
+                      <div className="nav-dropdown-products">
+                        {menuProducts.map((product) => (
+                          <Link key={product.handle} to={`/products/${product.handle}`} onClick={() => setDesktopShopMode(null)}>
+                            <span className="nav-dropdown-image"><ProductImage product={product} decorative sizes="140px" /></span>
+                            <span>{product.short}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -142,7 +169,7 @@ export default function Header() {
         <section className="mobile-menu-featured" aria-label="featured products">
           <h2>for your first bowl</h2>
           <div className="mobile-menu-products">
-            {menuProducts.map((product) => (
+            {menuProducts.slice(0, 2).map((product) => (
               <article className="mobile-menu-product" key={product.handle}>
                 <Link to={`/products/${product.handle}`} onClick={() => setMenuOpen(false)} className="mobile-menu-product-image" aria-label={`view ${product.name}`}>
                   <ProductImage product={product} sizes="(max-width: 960px) 160px, 1px" decorative />

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getProduct, products, INTERVALS, money, subscribePrice, FREE_SHIPPING_THRESHOLD } from '../data/catalogue';
+import { getProduct, products, INTERVALS, money, subscribePrice, FREE_SHIPPING_THRESHOLD, SHIPPING_COPY } from '../data/catalogue';
 import { useCart } from '../store';
 import ProductImage from '../components/ProductImage';
 import ProductCard from '../components/ProductCard';
@@ -54,7 +54,7 @@ export default function Product() {
       : { q: 'how do i prepare the matcha?', a: 'sift two grams into a bowl, loosen with a little water at 80°C, add 70 ml more and whisk briskly in a "w" motion until a fine foam forms.' },
     {
       q: 'when will it arrive?',
-      a: `orders of ${money(FREE_SHIPPING_THRESHOLD)} or more ship free australia-wide; below that a flat $9.95 applies. estimated delivery is 2–8 business days.`,
+      a: SHIPPING_COPY,
     },
     ...(canSub ? [{
       q: 'can i change my subscription?',
@@ -76,7 +76,7 @@ export default function Product() {
         <div className="pdp">
           {/* gallery */}
           <div>
-            <div className="gallery-main">
+            <div className={`gallery-main ${selectedView?.src ? 'gallery-lifestyle' : 'gallery-product'} ${['blend-bundle', 'matcha-kit', 'whisk-holder-combo'].includes(product.handle) ? 'media-wide' : ''}`}>
               {selectedView?.src ? (
                 <img src={selectedView.src} alt={selectedView.alt} />
               ) : (
@@ -122,15 +122,14 @@ export default function Product() {
                   <span className="po-name"><span>one-time purchase</span><span className="po-price">{money(product.price)}</span></span>
                   <span className="po-note">single delivery</span>
                 </button>
-                <button
-                  className={`plan-opt ${plan === 'subscription' ? 'on' : ''} ${!canSub ? 'disabled' : ''}`}
-                  onClick={() => canSub && setPlan('subscription')}
-                  role="radio" aria-checked={plan === 'subscription'} disabled={!canSub}
-                  title={canSub ? '' : 'subscriptions apply to matcha blends only'}
+                {canSub && <button
+                  className={`plan-opt ${plan === 'subscription' ? 'on' : ''}`}
+                  onClick={() => setPlan('subscription')}
+                  role="radio" aria-checked={plan === 'subscription'}
                 >
-                  <span className="po-name"><span>subscribe &amp; save</span><span className="po-price">{canSub ? money(subscribePrice(product)) : '—'}</span></span>
-                  <span className="po-note">{canSub ? <span className="po-save">15% off every delivery</span> : 'matcha blends only'}</span>
-                </button>
+                  <span className="po-name"><span>subscribe &amp; save</span><span className="po-price">{money(subscribePrice(product))}</span></span>
+                  <span className="po-note"><span className="po-save">15% off every delivery</span></span>
+                </button>}
               </div>
 
               {plan === 'subscription' && canSub && (
@@ -174,7 +173,7 @@ export default function Product() {
             </div>
 
             <div className="pdp-trust">
-              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>free shipping over {money(FREE_SHIPPING_THRESHOLD)}</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>free shipping from {money(FREE_SHIPPING_THRESHOLD)}+</span>
               {canSub && <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3l7 3v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6z"/></svg>skip or cancel anytime</span>}
               <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6 9 17l-5-5"/></svg>ships australia-wide</span>
             </div>

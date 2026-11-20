@@ -1,19 +1,17 @@
-import { Link } from 'react-router-dom';
-import { CONTACT_EMAIL, FREE_SHIPPING_THRESHOLD, money } from '../data/catalogue';
+import { CONTACT_EMAIL, SHIPPING_COPY } from '../data/catalogue';
 import Reveal from '../components/Reveal';
 
 export function ShippingReturns() {
   return (
     <Policy title="shipping & returns">
       <h2>shipping</h2>
-      <p>we ship australia-wide. orders of {money(FREE_SHIPPING_THRESHOLD)} or more (after discounts) ship free; below that, a flat $9.95 applies. the same rules apply to every subscription delivery.</p>
-      <p>estimated delivery is 2–8 business days from ordering, subject to destination and carrier. you'll receive tracking once your order ships.</p>
+      <p>{SHIPPING_COPY}</p>
+      <p>Delivery estimates are subject to serviced destinations and operational feasibility. You'll receive tracking once your order ships.</p>
       <h2>order changes &amp; enquiries</h2>
       <p>for questions about your order, changes, delivery issues or returns, please email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> with your order number and enquiry. we'll respond within 1–2 business days.</p>
       <p>changes depend on whether your order has already been processed or dispatched — the sooner you write, the more we can do.</p>
       <h2>returns</h2>
-      <p>if your order arrives damaged or incorrect, email us within 14 days with your order number and photos, and we'll make it right. your australian consumer law rights always apply — nothing in this policy limits them.</p>
-      <p>for everything else, our team will talk you through the options honestly.</p>
+      <p>For order issues or returns, email us with your order number and enquiry. Your rights under Australian Consumer Law always apply. A voluntary change-of-mind return offer has not been confirmed.</p>
     </Policy>
   );
 }
@@ -53,7 +51,7 @@ export function Terms() {
       </ul>
       <h2>subscriptions</h2>
       <ul>
-        <li>subscribe &amp; save gives 15% off eligible matcha products, delivered every 2 weeks, monthly or every 2 months</li>
+        <li>subscribe &amp; save gives 15% off Everyday Blend and Premium Matcha, delivered every 2 weeks, monthly or every 2 months</li>
         <li>you can skip, pause, change frequency or quantity, update your details, or cancel any time from your account or the manage subscription link in our emails</li>
         <li>cancel before your next billing date to stop the next charge — changes take effect as shown at checkout</li>
         <li>the same free-shipping threshold applies to every subscription delivery</li>
@@ -79,7 +77,7 @@ export function ManageSubscription() {
             <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 24 }}>in the live store this page is powered by your subscription account — every delivery, billing date and change you make is listed here.</p>
             <div className="sub-row">
               <span className="sr-k">current plan</span>
-              <span className="sr-v">blend bundle · every month · $110.50 + shipping</span>
+              <span className="sr-v">Everyday Blend · every month · $51 + shipping</span>
             </div>
             <div className="sub-row">
               <span className="sr-k">next delivery</span>
