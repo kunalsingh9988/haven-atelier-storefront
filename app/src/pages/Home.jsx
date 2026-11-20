@@ -362,7 +362,7 @@ function Reviews() {
             what the first bowls are saying — real reviews will live on every product page.
           </p>
         </Reveal>
-        <div className="review-grid">
+        <div className="review-grid" role="region" aria-label="customer reviews" tabIndex={0}>
           {homeReviews.map((r, i) => (
             <Reveal key={r.name} delay={i * 100}>
               <figure className="review-card">
