@@ -388,16 +388,26 @@ function AtelierTeaser() {
 /* ---------------- faq ---------------- */
 function HomeFaq() {
   return (
-    <section className="section wrap">
-      <Reveal>
-        <h2 style={{ marginBottom: 50 }}>questions, answered quietly</h2>
-      </Reveal>
-      <Reveal delay={80}>
-        <Accordion items={faqs.slice(0, 5)} />
-      </Reveal>
-      <Reveal delay={140}>
-        <p style={{ marginTop: 26 }}><Link to="/pages/faqs" className="link-arrow">all faqs</Link></p>
-      </Reveal>
+    <section className="section wrap home-faq" aria-labelledby="home-faq-title">
+      <div className="home-faq-grid">
+        <Reveal>
+          <div className="home-faq-intro">
+            <h2 id="home-faq-title">questions, answered quietly</h2>
+            <figure className="home-faq-image">
+              <img
+                src="/img/lifestyle/ritual-set.webp"
+                alt="Matcha in a ceramic bowl with a bamboo whisk, tin and tea tools"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+        </Reveal>
+        <Reveal delay={80}>
+          <div className="home-faq-answers">
+            <Accordion items={faqs.slice(0, 5)} />
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
