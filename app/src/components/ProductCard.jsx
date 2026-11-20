@@ -6,7 +6,7 @@ import { Stars } from './Stars';
 
 export { Stars } from './Stars';
 
-export default function ProductCard({ product, quickAdd = true, showTag = false }) {
+export default function ProductCard({ product, quickAdd = true, showTag = false, showRating = true }) {
   const { add } = useCart();
   const canSub = product.subPrice != null;
   return (
@@ -18,7 +18,7 @@ export default function ProductCard({ product, quickAdd = true, showTag = false 
       <div className="card-body">
         {showTag && <span className="card-tag">{product.tag}</span>}
         <Link to={`/products/${product.handle}`} className="card-name">{product.name}</Link>
-        <Stars rating={product.rating} />
+        {showRating && <Stars rating={product.rating} />}
         <div className="card-price">
           {money(product.price)}
           {canSub && <span style={{ color: 'var(--olive)', fontSize: 14, fontWeight: 500 }}>or {money(product.subPrice)} subscribed</span>}
