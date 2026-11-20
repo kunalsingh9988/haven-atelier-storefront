@@ -340,16 +340,9 @@ p { margin: 0; }
 }
 .philo-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); gap: clamp(28px,4vw,64px); align-items: center; margin-top: 8px; }
 .philo-film { margin: 0; }
-.philo-film video { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius); }
+.philo-film img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius); }
 .philo-film figcaption { padding: 12px 4px 0; color: rgba(244,245,236,.6); font-size: var(--fs-sm); }
-@media (max-width: 860px) { .philo-grid { grid-template-columns: minmax(0,1fr); } .philo-film video { aspect-ratio: 16/10; } }
-@media (prefers-reduced-motion: reduce) {
-  .philo-film video { display: none; }
-  .philo-film::before {
-    content: ''; display: block; aspect-ratio: 4 / 3; border-radius: var(--radius);
-    background: url('/img/matcha-whisking-poster.jpg') center / cover;
-  }
-}
+@media (max-width: 860px) { .philo-grid { grid-template-columns: minmax(0,1fr); } .philo-film img { aspect-ratio: 16/10; } }
 .philosophy .philo-copy { margin-top: 34px; max-width: 56ch; color: rgba(244,245,236,.78); font-size: var(--fs-md); }
 .philosophy .btn { margin-top: 40px; }
 
@@ -1159,7 +1152,7 @@ h3 { font-size: clamp(21px, 2vw, 27px); }
 .home-shop .tab-btn { font-size: 12px; font-weight: 600; letter-spacing: .08em; }
 .card-media { aspect-ratio: 3 / 4; background: #eee6da; border-radius: 5px; }
 .card-media .product-image { object-fit: cover; }
-.card-media.media-wide .product-image { object-fit: contain; }
+.card-media.media-wide .product-image { object-fit: cover; }
 .card-media:hover .product-image { transform: scale(1.025); }
 .card-name { font-family: var(--font-body); font-size: clamp(17px, 1.6vw, 21px); font-weight: 500; color: var(--ink); }
 .card-tag { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .1em; }
@@ -1208,6 +1201,8 @@ h3 { font-size: clamp(21px, 2vw, 27px); }
 .footer-social-wrap { margin-top: 22px; }
 .footer-social-heading { font-size: 13px; color: rgba(255,255,255,.72); }
 .footer-social { margin-top: 10px; }
+.footer-credits summary { width: fit-content; cursor: pointer; color: rgba(255,255,255,.7); }
+.footer-credits p { margin: 10px 0 0; }
 
 @media (max-width: 960px) {
   .nav-item .nav-dropdown.open { display: none; }

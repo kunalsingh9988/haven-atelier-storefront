@@ -70,8 +70,9 @@ export default function Footer() {
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           </span>
         </div>
-        <p className="footer-credits">
-          Product and lifestyle images are AI-generated concepts. Other pictures &amp; footage via wikimedia commons —{' '}
+        <details className="footer-credits">
+          <summary>Image credits</summary>
+          <p>Product and lifestyle images are AI-generated concepts. Other pictures via Wikimedia Commons —{' '}
           <a href="https://commons.wikimedia.org/wiki/File:Tea-plantation_Shizuoka-Fukuroi.jpg" target="_blank" rel="noopener noreferrer">tea plantation, shizuoka</a> by MaedaAkihiko,{' '}
           <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>;{' '}
           <a href="https://commons.wikimedia.org/wiki/File:Chasen-top_oblique-fs_PNr%C2%B00500.jpg" target="_blank" rel="noopener noreferrer">chasen</a> by D-Kuru,{' '}
@@ -86,10 +87,9 @@ export default function Footer() {
           <a href="https://commons.wikimedia.org/w/index.php?curid=42939336" target="_blank" rel="noopener noreferrer">wagashi</a> by Douglas Perkins, CC0;{' '}
           <a href="https://commons.wikimedia.org/wiki/File:Uji_tea_box_02.jpg" target="_blank" rel="noopener noreferrer">uji tea</a>, CC0;{' '}
           <a href="https://commons.wikimedia.org/w/index.php?curid=127618604" target="_blank" rel="noopener noreferrer">matcha latte</a> by Marife.altabano,{' '}
-          <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>;{' '}
-          <a href="https://commons.wikimedia.org/wiki/File:Matcha_latte_whisking.webm" target="_blank" rel="noopener noreferrer">whisking film</a> by Based5290,{' '}
-          <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
-        </p>
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
+          </p>
+        </details>
       </div>
 
       <div className="footer-giant" aria-hidden="true">HAVEN</div>

@@ -45,9 +45,7 @@ function Philosophy() {
           </div>
         </Reveal>
         <figure className="philo-film">
-          <video autoPlay muted loop playsInline preload="metadata" poster="/img/matcha-whisking-poster.jpg" aria-label="Matcha being whisked">
-            <source src="/img/matcha-whisking.webm" type="video/webm" />
-          </video>
+          <img src="/img/tea-plantation-shizuoka-fukuroi.jpg" alt="Tea fields in Shizuoka, Japan" loading="lazy" />
         </figure>
       </div>
     </section>
