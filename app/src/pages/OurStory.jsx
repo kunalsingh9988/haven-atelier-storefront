@@ -25,11 +25,11 @@ export default function OurStory() {
           <h1>a little more intention in the everyday.</h1>
         </Reveal>
         <Reveal delay={80}>
-          <div className="story" style={{ marginTop: 30 }}>
+          <div className="story">
             <figure className="portrait">
               <img src="/img/tea-minami-yamashiro-kyoto-01.jpg" alt="rows of tea bushes in kyoto — a temporary stand-in for anna's portrait" />
             </figure>
-            {STORY.map(([tag, text], i) => (
+            {STORY.map(([, text], i) => (
               <p key={i} className={i === 2 ? 'soft' : ''}>{text}</p>
             ))}
             <p className="signoff">with love,<br />anna</p>
@@ -41,7 +41,7 @@ export default function OurStory() {
             <span>small-batch ceremonial matcha</span>
             <span>questions? <Link to="/pages/contact" style={{ color: 'var(--olive)' }}>say hello</Link></span>
           </div>
-          <div style={{ marginTop: 44 }}>
+          <div className="story-action">
             <Link to="/collections/matcha" className="btn btn-primary">shop matcha</Link>
           </div>
         </Reveal>
