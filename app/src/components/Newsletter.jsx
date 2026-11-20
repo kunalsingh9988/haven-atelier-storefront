@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { CONTACT_EMAIL } from '../data/catalogue';
 
 export default function Newsletter({ heading = 'join the atelier', copy = 'occasional letters on new blends, quiet rituals and small-batch releases. no noise, unsubscribe anytime.' }) {
   const [email, setEmail] = useState('');
@@ -14,11 +13,9 @@ export default function Newsletter({ heading = 'join the atelier', copy = 'occas
   return (
     <section className="section-tight wrap">
       <div className="newsletter rv">
-        <div>
-          <h2 style={{ fontSize: 'clamp(28px,3vw,40px)' }}>{heading}</h2>
+        <div className="newsletter-content">
+          <h2>{heading}</h2>
           <p>{copy}</p>
-        </div>
-        <div>
           {state === 'ok' ? (
             <div className="form-ok" style={{ background: 'rgba(244,245,236,.1)', color: 'var(--cream-on-dark)' }}>
               you're on the list — 静 see you in the next letter.
@@ -37,6 +34,13 @@ export default function Newsletter({ heading = 'join the atelier', copy = 'occas
             </form>
           )}
           {state === 'err' && <p className="form-note" style={{ color: '#f0b9a8' }}>please enter a valid email address.</p>}
+        </div>
+        <div className="newsletter-image">
+          <img
+            src="/img/lifestyle/matcha-preparation.webp"
+            alt="Hands whisking matcha in a ceramic bowl"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
