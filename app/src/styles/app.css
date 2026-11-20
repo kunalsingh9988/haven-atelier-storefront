@@ -437,7 +437,7 @@ p { margin: 0; }
 .ritual-visual img.on { opacity: 1; }
 .ritual-step { padding: 56px 0; }
 .ritual-step:first-child { padding-top: 0; }
-.ritual-step .step-no { font-family: var(--font-kanji); font-size: 15px; color: var(--olive); letter-spacing: .2em; display: block; margin-bottom: 10px; }
+.ritual-step .step-no { font-family: var(--font-kanji); font-size: 22px; font-weight: 700; line-height: 1.2; color: var(--olive); display: block; margin-bottom: 10px; }
 .ritual-step h3 { font-size: var(--fs-2xl); margin-bottom: 12px; color: var(--forest); }
 .ritual-step p { color: var(--ink-soft); max-width: 48ch; }
 @media (max-width: 960px) {
