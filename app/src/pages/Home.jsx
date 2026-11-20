@@ -14,7 +14,10 @@ import RecipeGrid from '../components/RecipeGrid';
 function Hero() {
   return (
     <section className="hero" aria-label="haven atelier — ceremonial grade matcha">
-      <img src="/img/lifestyle/hero-matcha-ritual.webp" alt="Iced matcha beside a bamboo whisk in warm afternoon light" fetchPriority="high" />
+      <picture className="hero-media">
+        <source media="(max-width: 760px)" srcSet="/img/lifestyle/hero-matcha-ritual-mobile.webp" type="image/webp" />
+        <img src="/img/lifestyle/hero-matcha-ritual.webp" alt="Iced matcha beside a bamboo whisk in warm afternoon light" fetchPriority="high" />
+      </picture>
       <div className="hero-scrim" />
       <div className="hero-lockup">
         <h1 className="hero-name">a slower kind<br />of morning.</h1>
