@@ -328,13 +328,19 @@ function SubscribeSave() {
               </div>
             </div>
             <div className="calc-out">
-              <div>
+              <div className="calc-price-block">
                 <div className="calc-price">{money(sub)}</div>
-                <div className="calc-note">{money(sub / bowls)} per bowl · {money(p.price)} one-time</div>
+                <p className="calc-note">{money(sub / bowls)} per bowl <span aria-hidden="true">·</span> {money(p.price)} one-time</p>
               </div>
-              <div style={{ textAlign: 'right' }}>
-                <div className={`calc-ship ${shipFree ? 'free' : ''}`}>{shipFree ? 'free shipping' : `+ ${money(9.95)} shipping`}</div>
-                <div className="calc-note">next delivery ~ {nextStr}</div>
+              <div className="calc-meta">
+                <div className="calc-meta-row">
+                  <span>shipping</span>
+                  <strong className={`calc-ship ${shipFree ? 'free' : ''}`}>{shipFree ? 'free' : `+ ${money(9.95)}`}</strong>
+                </div>
+                <div className="calc-meta-row">
+                  <span>next delivery</span>
+                  <strong>~ {nextStr}</strong>
+                </div>
               </div>
             </div>
             <Link to={`/products/${blend}`} className="btn btn-olive btn-block">start my subscription</Link>
