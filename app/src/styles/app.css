@@ -665,7 +665,8 @@ p { margin: 0; }
 /* ---------- footer ---------- */
 .site-footer { background: var(--forest); color: var(--cream-on-dark); overflow: hidden; }
 .footer-main { padding: clamp(56px, 7vw, 100px) var(--pad-x) clamp(40px, 5vw, 72px); }
-.footer-grid { display: grid; grid-template-columns: 1.2fr repeat(3, minmax(0,1fr)); gap: 40px; max-width: 1180px; margin: 0 auto; }
+.footer-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,3fr); gap: 40px; max-width: 1180px; margin: 0 auto; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 40px; }
 .footer-brand .kanji { font-size: 30px; color: var(--sage); }
 .footer-brand .word { font-family: var(--font-display); font-size: 26px; letter-spacing: .1em; text-transform: uppercase; margin-top: 10px; display: block; }
 .footer-brand p { margin-top: 14px; color: rgba(244,245,236,.65); font-size: var(--fs-sm); max-width: 30ch; }
@@ -689,8 +690,9 @@ p { margin: 0; }
   transform: translateY(14%);
 }
 @media (max-width: 800px) {
-  .footer-grid { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
-  .footer-brand { grid-column: 1 / -1; }
+  .footer-grid { grid-template-columns: minmax(0,1fr); }
+  .footer-nav { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .footer-col:first-child { grid-row: 1 / span 2; }
 }
 
 /* ---------- collection header ---------- */
@@ -1033,7 +1035,15 @@ p { margin: 0; }
   .recipe-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .card-badge { top: 8px; left: 8px; padding: 3px 8px; font-size: 12px; }
   .contact-grid { grid-template-columns: minmax(0, 1fr); }
-  .footer-grid { gap: 24px 16px; }
+  .footer-main { padding-top: 36px; padding-bottom: 32px; }
+  .footer-grid { gap: 24px; }
+  .footer-nav { gap: 14px 20px; }
+  .footer-brand .word { margin-top: 5px; }
+  .footer-brand p { margin-top: 10px; }
+  .footer-social { margin-top: 16px; }
+  .footer-col h4 { margin-bottom: 8px; }
+  .footer-legal-row { margin-top: 28px; padding-top: 20px; }
+  .footer-credits { margin-top: 16px; }
   .footer-col a, .mobile-sub a { min-height: 44px; }
   .footer-social { flex-wrap: wrap; }
   .cart-line { grid-template-columns: 60px minmax(0, 1fr); align-items: start; gap: 12px; }

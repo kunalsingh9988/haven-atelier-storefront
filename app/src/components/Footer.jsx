@@ -55,22 +55,24 @@ export default function Footer() {
             </div>
           </div>
 
-          {[
-            { title: 'shop', links: footerLinks.shop },
-            { title: 'explore', links: footerLinks.explore },
-            { title: 'support', links: footerLinks.support },
-          ].map((col) => (
-            <div className="footer-col" key={col.title}>
-              <h4>{col.title}</h4>
-              {col.links.map((l) =>
-                l.external ? (
-                  <Link key={l.label} to="/pages/the-atelier">{l.label}</Link>
-                ) : (
-                  <Link key={l.label} to={l.path}>{l.label}</Link>
-                )
-              )}
-            </div>
-          ))}
+          <nav className="footer-nav" aria-label="Footer">
+            {[
+              { title: 'shop', links: footerLinks.shop },
+              { title: 'explore', links: footerLinks.explore },
+              { title: 'support', links: footerLinks.support },
+            ].map((col) => (
+              <div className="footer-col" key={col.title}>
+                <h4>{col.title}</h4>
+                {col.links.map((l) =>
+                  l.external ? (
+                    <Link key={l.label} to="/pages/the-atelier">{l.label}</Link>
+                  ) : (
+                    <Link key={l.label} to={l.path}>{l.label}</Link>
+                  )
+                )}
+              </div>
+            ))}
+          </nav>
         </div>
 
         <div className="footer-legal-row">
