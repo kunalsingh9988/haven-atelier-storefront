@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { nav } from '../data/catalogue';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { getProducts, money, nav } from '../data/catalogue';
 import { useCart } from '../store';
+import ProductImage from './ProductImage';
+
+const menuProducts = getProducts(['everyday-blend', 'matcha-kit']);
 
 function SearchIcon() {
   return (
@@ -36,9 +39,8 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
-  const { count, setDrawerOpen } = useCart();
+  const { add, count, setDrawerOpen } = useCart();
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -137,6 +139,21 @@ export default function Header() {
             )
           )}
         </nav>
+        <section className="mobile-menu-featured" aria-label="featured products">
+          <h2>for your first bowl</h2>
+          <div className="mobile-menu-products">
+            {menuProducts.map((product) => (
+              <article className="mobile-menu-product" key={product.handle}>
+                <Link to={`/products/${product.handle}`} onClick={() => setMenuOpen(false)} className="mobile-menu-product-image" aria-label={`view ${product.name}`}>
+                  <ProductImage product={product} sizes="(max-width: 960px) 160px, 1px" decorative />
+                </Link>
+                <Link to={`/products/${product.handle}`} onClick={() => setMenuOpen(false)} className="mobile-menu-product-name">{product.short}</Link>
+                <span className="mobile-menu-product-price">{money(product.price)}</span>
+                <button type="button" onClick={() => { setMenuOpen(false); add(product.handle, 1, 'onetime'); }} aria-label={`add ${product.name} to cart`}>add to cart</button>
+              </article>
+            ))}
+          </div>
+        </section>
         <div className="mobile-foot">
           <Link to="/pages/faqs" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, color: 'var(--ink-soft)' }}>faqs</Link>
           <Link to="/pages/contact" onClick={() => setMenuOpen(false)} className="btn btn-primary btn-sm" style={{ alignSelf: 'flex-start', marginTop: 10 }}>contact us</Link>
