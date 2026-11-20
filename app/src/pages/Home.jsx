@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 import {
   products, getProducts, homeReviews, recipes, faqs,
   money, INTERVALS, FREE_SHIPPING_THRESHOLD,
@@ -309,16 +310,22 @@ function SubscribeSave() {
           <div className="calc" aria-label="subscription calculator">
             <div>
               <label htmlFor="calc-blend">choose your blend</label>
-              <select id="calc-blend" value={blend} onChange={(e) => setBlend(e.target.value)}>
-                <option value="everyday-blend">everyday blend — 30 g</option>
-                <option value="premium-matcha">premium matcha — 30 g</option>
-              </select>
+              <div className="calc-select">
+                <select id="calc-blend" value={blend} onChange={(e) => setBlend(e.target.value)}>
+                  <option value="everyday-blend">everyday blend — 30 g</option>
+                  <option value="premium-matcha">premium matcha — 30 g</option>
+                </select>
+                <ChevronDown aria-hidden="true" size={20} strokeWidth={2} />
+              </div>
             </div>
             <div>
               <label htmlFor="calc-interval">delivery rhythm</label>
-              <select id="calc-interval" value={interval} onChange={(e) => setInterval(e.target.value)}>
-                {INTERVALS.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}
-              </select>
+              <div className="calc-select">
+                <select id="calc-interval" value={interval} onChange={(e) => setInterval(e.target.value)}>
+                  {INTERVALS.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}
+                </select>
+                <ChevronDown aria-hidden="true" size={20} strokeWidth={2} />
+              </div>
             </div>
             <div className="calc-out">
               <div>

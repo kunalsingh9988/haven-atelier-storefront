@@ -484,10 +484,13 @@ p { margin: 0; }
   display: grid; gap: 22px; max-width: 560px;
 }
 .calc label { display: block; font-size: var(--fs-sm); font-weight: 500; color: var(--ink-soft); margin-bottom: 8px; }
+.calc-select { position: relative; }
 .calc select {
-  width: 100%; padding: 13px 16px; border-radius: var(--radius-s);
+  width: 100%; padding: 13px 48px 13px 16px; border-radius: var(--radius-s);
   border: 1.5px solid var(--line); background: var(--bg); font-size: var(--fs-md); cursor: pointer;
+  appearance: none;
 }
+.calc-select svg { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--ink); pointer-events: none; }
 .calc .calc-out {
   display: flex; justify-content: space-between; align-items: baseline;
   padding-top: 16px;
