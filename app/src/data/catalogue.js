@@ -5,7 +5,7 @@ export const FREE_SHIPPING_THRESHOLD = 120;
 export const FLAT_SHIPPING = 9.95;
 export const SUB_DISCOUNT = 0.15;
 export const CONTACT_EMAIL = 'info@havenateliermatcha.com';
-export const SHIPPING_COPY = 'Australia only. Free shipping on goods totals of $120 or more after discounts. Flat $9.95 below $120. These rules apply to each subscription delivery. Estimated delivery is 2–8 business days from ordering, subject to confirmation.';
+export const SHIPPING_COPY = 'We ship within Australia. Shipping is $9.95 on orders under $120 and free on orders of $120 or more. We calculate your order total after discounts. The same rates apply to each subscription delivery. Orders typically arrive within 2–8 business days.';
 
 export const INTERVALS = [
   { id: '2w', label: 'every 2 weeks', days: 14 },

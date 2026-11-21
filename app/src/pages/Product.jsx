@@ -166,7 +166,7 @@ export default function Product() {
 
               <button
                 className="btn btn-primary btn-block"
-                onClick={() => add(product.handle, qty, plan === 'subscription' ? 'subscription' : 'onetime')}
+                onClick={() => add(product.handle, qty, canSub ? plan : 'onetime', interval)}
               >
                 {plan === 'subscription' ? 'add subscription to cart' : 'add to cart'}
               </button>

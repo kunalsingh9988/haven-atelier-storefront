@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { footerLinks, CONTACT_EMAIL } from '../data/catalogue';
 
@@ -17,26 +18,27 @@ function TikTokIcon() {
 }
 
 const socials = [
-  { label: 'instagram', href: 'https://www.instagram.com/', Icon: InstagramIcon },
-  { label: 'tiktok', href: 'https://www.tiktok.com/', Icon: TikTokIcon },
+  { label: 'instagram', Icon: InstagramIcon },
+  { label: 'tiktok', Icon: TikTokIcon },
 ];
 
 export default function Footer() {
+  const [expanded, setExpanded] = useState({});
   return (
     <footer className="site-footer">
       <div className="footer-main">
         <div className="footer-grid">
           <div className="footer-brand">
             <span className="kanji">静</span>
-            <span className="word">haven atelier</span>
+            <span className="word">HAVEN</span>
             <p>ceremonial grade matcha and thoughtfully crafted teaware, for a quieter everyday.</p>
             <div className="footer-social-wrap">
               <span className="footer-social-heading">Socials</span>
               <div className="footer-social">
-              {socials.map(({ label, href, Icon }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="social-btn" aria-label={label}>
+              {socials.map(({ label, Icon }) => (
+                <span key={label} className="social-btn" role="img" aria-label={label}>
                   <Icon />
-                </a>
+                </span>
               ))}
               </div>
             </div>
@@ -49,14 +51,17 @@ export default function Footer() {
               { title: 'support', links: footerLinks.support },
             ].map((col) => (
               <div className="footer-col" key={col.title}>
-                <h4>{col.title}</h4>
-                {col.links.map((l) =>
-                  l.external ? (
-                    <Link key={l.label} to="/pages/the-atelier">{l.label}</Link>
-                  ) : (
-                    <Link key={l.label} to={l.path}>{l.label}</Link>
-                  )
-                )}
+                <h4 className="footer-col-title">{col.title}</h4>
+                <button type="button" className="footer-col-toggle" aria-expanded={Boolean(expanded[col.title])}
+                  aria-controls={`footer-${col.title}`}
+                  onClick={() => setExpanded((current) => ({ ...current, [col.title]: !current[col.title] }))}>
+                  {col.title}<span aria-hidden="true">{expanded[col.title] ? '−' : '+'}</span>
+                </button>
+                <div id={`footer-${col.title}`} className="footer-col-links">
+                  {col.links.map((link) => (
+                    <Link key={link.label} to={link.external ? '/pages/the-atelier' : link.path}>{link.label}</Link>
+                  ))}
+                </div>
               </div>
             ))}
           </nav>

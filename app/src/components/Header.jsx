@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { getProducts, money, nav } from '../data/catalogue';
 import { useCart } from '../store';
@@ -40,7 +40,10 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [desktopShopMode, setDesktopShopMode] = useState(null);
-  const { add, count, setDrawerOpen } = useCart();
+  const desktopShop = useRef(null);
+  const mobileTrigger = useRef(null);
+  const mobileClose = useRef(null);
+  const { count, setDrawerOpen } = useCart();
   const location = useLocation();
 
   useEffect(() => {
@@ -61,6 +64,24 @@ export default function Header() {
     return () => document.body.classList.remove('no-scroll');
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!desktopShopMode) return;
+    function dismissOutside(event) {
+      if (!desktopShop.current?.contains(event.target)) setDesktopShopMode(null);
+    }
+    document.addEventListener('pointerdown', dismissOutside);
+    return () => document.removeEventListener('pointerdown', dismissOutside);
+  }, [desktopShopMode]);
+
+  useEffect(() => {
+    if (menuOpen) mobileClose.current?.focus();
+  }, [menuOpen]);
+
+  function closeMobileMenu() {
+    setMenuOpen(false);
+    mobileTrigger.current?.focus();
+  }
+
   return (
     <>
       <div className="announce">Free shipping from $120+</div>
@@ -76,9 +97,14 @@ export default function Header() {
               item.children ? (
                 <div
                   className="nav-item"
+                  ref={desktopShop}
                   key={item.label}
                   onMouseEnter={() => setDesktopShopMode((mode) => mode ?? 'hover')}
-                  onMouseLeave={() => setDesktopShopMode((mode) => mode === 'hover' ? null : mode)}
+                  onMouseLeave={(event) => {
+                    if (!event.currentTarget.querySelector('.nav-dropdown')?.contains(document.activeElement)) {
+                      setDesktopShopMode((mode) => mode === 'hover' ? null : mode);
+                    }
+                  }}
                   onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setDesktopShopMode(null); }}
                   onKeyDown={(event) => { if (event.key === 'Escape') { setDesktopShopMode(null); event.currentTarget.querySelector('button')?.focus(); } }}
                 >
@@ -125,20 +151,21 @@ export default function Header() {
               <BagIcon />
               {count > 0 && <span className="cart-count">{count}</span>}
             </button>
-            <button className="icon-btn burger" onClick={() => setMenuOpen(true)} aria-label="open menu">
+            <button className="icon-btn burger" ref={mobileTrigger} onClick={() => setMenuOpen(true)} aria-expanded={menuOpen} aria-controls="mobile-menu" aria-label="open menu">
               <MenuIcon />
             </button>
           </div>
         </div>
       </header>
 
-      <div className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
+      <div id="mobile-menu" className={`mobile-menu ${menuOpen ? 'open' : ''}`} inert={!menuOpen}
+        onKeyDown={(event) => { if (event.key === 'Escape') closeMobileMenu(); }}>
         <div className="mobile-menu-top">
           <Link to="/" className="brand" onClick={() => setMenuOpen(false)}>
             <span className="brand-mark kanji">静</span>
             <span className="brand-word">haven atelier</span>
           </Link>
-          <button className="icon-btn" onClick={() => setMenuOpen(false)} aria-label="close menu" style={{ width: 42, height: 42 }}>
+          <button className="icon-btn" ref={mobileClose} onClick={closeMobileMenu} aria-label="close menu" style={{ width: 42, height: 42 }}>
             <CloseIcon />
           </button>
         </div>
@@ -149,12 +176,12 @@ export default function Header() {
                 <button
                   onClick={() => setShopOpen((v) => !v)}
                   style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', fontFamily: 'var(--font-display)', fontSize: 'clamp(30px,8vw,44px)', lineHeight: 1.15, padding: '14px 0', color: 'var(--forest)', textAlign: 'left' }}
-                  aria-expanded={shopOpen}
+                  aria-expanded={shopOpen} aria-controls="mobile-shop-links"
                 >
                   {item.label} <span className="sub">{shopOpen ? '−' : '+'}</span>
                 </button>
                 {shopOpen && (
-                  <div className="mobile-sub">
+                  <div className="mobile-sub" id="mobile-shop-links">
                     {item.children.map((c) => (
                       <Link key={c.path} to={c.path} onClick={() => setMenuOpen(false)}>{c.label}</Link>
                     ))}
@@ -176,7 +203,7 @@ export default function Header() {
                 </Link>
                 <Link to={`/products/${product.handle}`} onClick={() => setMenuOpen(false)} className="mobile-menu-product-name">{product.short}</Link>
                 <span className="mobile-menu-product-price">{money(product.price)}</span>
-                <button type="button" onClick={() => { setMenuOpen(false); add(product.handle, 1, 'onetime'); }} aria-label={`add ${product.name} to cart`}>add to cart</button>
+                <Link className="mobile-menu-product-action" to={`/products/${product.handle}`} onClick={() => setMenuOpen(false)}>Choose options</Link>
               </article>
             ))}
           </div>

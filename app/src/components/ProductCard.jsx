@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom';
 import ProductImage from './ProductImage';
+import { lifestyleImages } from '../data/lifestyle';
 import { money } from '../data/catalogue';
 import { useCart } from '../store';
-export default function ProductCard({ product, quickAdd = true, showTag = false }) {
+export default function ProductCard({ product, quickAdd = true, showTag = false, showAlternate = false }) {
   const { add } = useCart();
   const canSub = product.subPrice != null;
+  const alternate = showAlternate ? lifestyleImages(product)[0] : null;
   return (
     <article className="card">
-      <Link to={`/products/${product.handle}`} className={`card-media ${['blend-bundle', 'matcha-kit', 'whisk-holder-combo'].includes(product.handle) ? 'media-wide' : ''}`} aria-label={product.name}>
+      <Link to={`/products/${product.handle}`} className="card-media" aria-label={product.name}>
         <ProductImage product={product} sizes="(max-width: 720px) 280px, (max-width: 1080px) 33vw, 440px" decorative />
+        {alternate && <img className="card-alternate" src={alternate.src} alt="" loading="lazy" />}
         {canSub && <span className="card-badge">save 15%</span>}
       </Link>
       <div className="card-body">

@@ -22,15 +22,16 @@ export function CartProvider({ children }) {
     localStorage.setItem(KEY, JSON.stringify(lines));
   }, [lines]);
 
-  const add = (handle, qty = 1, plan = 'onetime') => {
+  const add = (handle, qty = 1, plan = 'onetime', interval = '1m') => {
+    const delivery = plan === 'subscription' ? { interval } : {};
     setLines((prev) => {
       const i = prev.findIndex((l) => l.handle === handle && l.plan === plan);
       if (i >= 0) {
         const next = [...prev];
-        next[i] = { ...next[i], qty: next[i].qty + qty };
+        next[i] = { ...next[i], ...delivery, qty: next[i].qty + qty };
         return next;
       }
-      return [...prev, { handle, qty, plan }];
+      return [...prev, { handle, qty, plan, ...delivery }];
     });
     setDrawerOpen(true);
     setOfferTab('cart');

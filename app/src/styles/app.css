@@ -1220,3 +1220,44 @@ h3 { font-size: clamp(21px, 2vw, 27px); }
   .subscribe-simple-grid { grid-template-columns: minmax(0, 1fr); }
   .subscribe-simple-grid > img { max-height: 440px; aspect-ratio: 4 / 3; }
 }
+
+.nav-shop-trigger[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.mobile-sub a { font-size: 17px !important; min-height: 44px; padding-block: 8px; }
+.mobile-menu-product-action { margin-top: 8px; padding-block: 10px; font-size: var(--fs-sm); text-decoration: underline; text-underline-offset: 4px; }
+.home-shop .shop-heading { justify-content: center; }
+.home-shop .rail { grid-auto-columns: minmax(0, 320px); }
+.card-alternate { display: none; }
+@media (min-width: 961px) and (hover: hover) and (pointer: fine) {
+  .home-shop .card-alternate {
+    display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transition: opacity .2s;
+  }
+  .home-shop .card:hover .card-alternate, .home-shop .card:focus-within .card-alternate { opacity: 1; }
+  .home-shop .card-foot { opacity: 0; transition: opacity .2s; }
+  .home-shop .card:hover .card-foot, .home-shop .card:focus-within .card-foot { opacity: 1; }
+}
+@media (max-width: 700px) {
+  .home-shop .rail { grid-auto-columns: minmax(0, min(72vw, 290px)); }
+}
+
+.site-footer { background: var(--surface); color: var(--ink); }
+.footer-brand .kanji, .footer-giant, .footer-col a, .social-btn { color: var(--ink); }
+.footer-brand p, .footer-col h4, .footer-legal-row, .footer-credits,
+.footer-credits a, .footer-credits summary, .footer-social-heading { color: var(--muted); }
+.footer-col a:hover, .footer-credits a:hover { color: var(--ink); }
+.social-btn { border-color: var(--line); }
+.social-btn:hover { border-color: var(--line); background: transparent; }
+.footer-giant { transform: none; padding-bottom: .14em; }
+.footer-col-toggle { display: none; }
+
+@media (max-width: 800px) {
+  .footer-nav { display: block; }
+  .footer-col { border-bottom: 1px solid var(--line); }
+  .footer-col-title { display: none; }
+  .footer-col-toggle {
+    display: flex; justify-content: space-between; align-items: center;
+    min-height: 44px; width: 100%; text-align: left; font-weight: 600;
+  }
+  .footer-col-toggle[aria-expanded="false"] + .footer-col-links { display: none; }
+  .footer-col-links { padding-bottom: 8px; }
+}

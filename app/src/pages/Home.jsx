@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../data/catalogue';
 import ProductCard from '../components/ProductCard';
@@ -7,7 +8,7 @@ function Hero() {
   return (
     <section className="hero" aria-label="Haven Atelier Japanese matcha and teaware">
       <picture className="hero-media">
-        <source media="(max-width: 700px)" srcSet="/img/lifestyle/matcha-preparation.webp" type="image/webp" />
+        <source media="(max-width: 700px)" srcSet="/img/lifestyle/ritual-set-mobile.webp" type="image/webp" />
         <img src="/img/lifestyle/ritual-set.webp" alt="Matcha being prepared with a bamboo whisk, bowl and tea tin" fetchPriority="high" />
       </picture>
       <div className="hero-lockup">
@@ -18,15 +19,36 @@ function Hero() {
   );
 }
 
-function FeaturedGroup({ title, handles }) {
-  const items = getProducts(handles);
+const featuredGroups = [
+  { id: 'best-sellers', title: 'BEST SELLERS', handles: ['everyday-blend', 'haven-bowl-1'] },
+  { id: 'kits', title: 'KITS', handles: ['matcha-kit'] },
+];
+
+function FeaturedShop() {
+  const [selected, setSelected] = useState(0);
+  const group = featuredGroups[selected];
+
+  function moveTab(event) {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? featuredGroups.length - 1 : 1 - selected;
+    setSelected(next);
+    event.currentTarget.querySelectorAll('button')[next].focus();
+  }
+
   return (
-    <section className="section wrap home-shop" aria-label={title}>
-      <div className="shop-heading">
-        <h2>{title}</h2>
+    <section className="section wrap home-shop" aria-label="Featured products">
+      <div className="tabs shop-heading" role="tablist" aria-label="Featured products" onKeyDown={moveTab}>
+        {featuredGroups.map(({ id, title }, index) => (
+          <button key={id} type="button" id={`featured-${id}`} role="tab" aria-controls="featured-products"
+            aria-selected={selected === index} tabIndex={selected === index ? 0 : -1}
+            className={`tab-btn${selected === index ? ' active' : ''}`} onClick={() => setSelected(index)}>
+            {title}
+          </button>
+        ))}
       </div>
-      <div className="rail">
-        {items.map((product) => <ProductCard key={product.handle} product={product} />)}
+      <div id="featured-products" className="rail" role="tabpanel" aria-labelledby={`featured-${group.id}`}>
+        {getProducts(group.handles).map((product) => <ProductCard key={product.handle} product={product} showAlternate />)}
       </div>
     </section>
   );
@@ -83,7 +105,7 @@ function SubscribeSave() {
         <div className="subscribe-simple-copy">
           <h2>Subscribe &amp; save 15%</h2>
           <p>Choose Everyday Blend or Premium Matcha and receive 15% off each delivery.</p>
-          <p>Every 2 weeks · Every month · Every 2 months</p>
+          <p>Choose delivery every two weeks, every month or every two months.</p>
           <Link to="/collections/subscriptions" className="btn btn-primary">Shop subscriptions</Link>
         </div>
         <img src="/img/lifestyle/matcha-preparation.webp" alt="Matcha being whisked in a ceramic bowl" loading="lazy" />
@@ -96,8 +118,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <FeaturedGroup title="BEST SELLERS" handles={['everyday-blend', 'haven-bowl-1']} />
-      <FeaturedGroup title="KITS" handles={['matcha-kit', 'whisk-holder-combo']} />
+      <FeaturedShop />
       <Philosophy />
       <Tiles />
       <YouAndHaven />
